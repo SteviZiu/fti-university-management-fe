@@ -46,7 +46,7 @@ class UniManActions {
       const baseUrl = "https://uniman.herokuapp.com/api/v1";
       return async function (dispatch, getState) {
          let token = getState().auth.user.bearer;
-         const data = await trackPromise(axios.get(baseUrl + "/course-user/user/" + id,  {pageNumber: 0}, { headers: { "Authorization": `Bearer ${token}` } }, dispatch));
+         const data = await trackPromise(axios.get(baseUrl + "/course-user",  {pageNumber:0,pageSize:12}, { headers: { "Authorization": `Bearer ${token}` } }, dispatch));
          dispatch({
             type: EnumUniActions.SET_USER_COURSE,
             dati: data.data
@@ -176,7 +176,7 @@ class UniManActions {
       return async function (dispatch, getState) {
          let token = getState().auth.user.bearer;
          let id = getState().auth.user.userDto.id;
-         const data = await trackPromise(axios.get(baseUrl + "/comment/course/timeline/1", { headers: { "Authorization": `Bearer ${token}` } }, dispatch));
+         const data = await trackPromise(axios.get(baseUrl + "/comment/course/timeline/"+id, { headers: { "Authorization": `Bearer ${token}` } }, dispatch));
          dispatch({
             type: EnumUniActions.SET_POSTS_LIST,
             dati: data.data
@@ -189,12 +189,11 @@ class UniManActions {
       const baseUrl = "https://uniman.herokuapp.com/api/v1";
       return async function (dispatch, getState) {
          let token = getState().auth.user.bearer;
-         let like = { commentDto: obj };
-         const data = await trackPromise(axios.post(baseUrl + "/like", like, { headers: { "Authorization": `Bearer ${token}` } }, dispatch));
-         obj.likes.push(like);
+         const data = await trackPromise(axios.post(baseUrl + "/like", obj, { headers: { "Authorization": `Bearer ${token}` } }, dispatch));
+         //obj.likes.push(like);
          dispatch({
             type: EnumUniActions.UPDATE_POSTS,
-            dati: obj
+            dati: data.data
          });
       }
    }
@@ -243,7 +242,7 @@ class UniManActions {
       const baseUrl = "https://uniman.herokuapp.com/api/v1";
       return async function (dispatch, getState) {
          let token = getState().auth.user.bearer;
-         const data = await trackPromise(axios.post(baseUrl + "/friendship", obj, { headers: { "Authorization": `Bearer ${token}` } }, dispatch));
+         const data = await trackPromise(axios.put(baseUrl + "/friendship", obj, { headers: { "Authorization": `Bearer ${token}` } }, dispatch));
          let friends = getState().auth.friends.push(data.data)
          dispatch({
             type: EnumUniActions.LIST_FRIENDS,

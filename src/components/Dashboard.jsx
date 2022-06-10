@@ -22,11 +22,12 @@ class Dashboard extends PureComponent {
     }
 
     render() {
+        let posts = this.props.posts;
         return (
             <div className="content">
                 <PostCompose />
-                {this.props.posts &&
-                    this.props.posts.map((post) => {
+                {posts &&
+                    posts.map((post) => {
                         return (
                             <PostItem
                                 key={post.id}

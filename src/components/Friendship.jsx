@@ -134,7 +134,7 @@ class Friendship extends Component {
                     <Card.Body>
                         {friends.length > 0 ?
                             <ul className="list-unstyled team-members">
-                                {friends.map(el => <Friend key={el.friend.name} friend={el.friend} remove={removeFriend} status={el.friendshipStatus} />)}
+                                {friends.map(el => <Friend key={el.friend.name} friend={el.friend} removeFriend={removeFriend} status={el.friendshipStatus} />)}
                             </ul> : "There are no elements to show at this moment!"}
                     </Card.Body>
                 </Card>
@@ -146,7 +146,7 @@ class Friendship extends Component {
                     <Card.Body>
                         {reqFriends.length > 0 ?
                             <ul className="list-unstyled team-members">
-                                {reqFriends.map(el => <Friend key={el.sender.name} friend={el.sender} activate={addFriend} status={el.friendshipStatus} />)}
+                                {reqFriends.map(el => <Friend key={el.sender.name} friend={el.sender} addFriend={addFriend} status={el.friendshipStatus} />)}
                             </ul> : "There are no elements to show at this moment!"}
                     </Card.Body>
                 </Card>
