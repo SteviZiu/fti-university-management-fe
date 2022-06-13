@@ -19,7 +19,7 @@ class App extends PureComponent {
                 <Outlet />
             ) : (
                 <Navigate
-                    to={`/login`}
+                    to={`/`}
                     replace
                 />
             )
@@ -32,7 +32,7 @@ class App extends PureComponent {
                     <ProfileWithMsal />
                     <Routes>
         
-                        <Route path='/login' element={<Login msalContext={this.props.msalContext} />} />
+                        <Route path='/' element={<Login msalContext={this.props.msalContext} />} />
 
                         {routes.map((prop, key) => {
                             return (
