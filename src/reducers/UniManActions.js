@@ -89,7 +89,9 @@ class UniManActions {
          let token = getState().auth.user.bearer;
          let id = getState().auth.user.userDto.id;
          let obj = { courseDto: { id: courseId }, userDto: { id: id } }
-         const data = await trackPromise(axios.post(baseUrl + "/course-user", obj, { headers: { "Authorization": `Bearer ${token}` } }, dispatch));
+         const data = await trackPromise(axios.post(baseUrl + "/course-user", obj, { headers: { "Authorization": `Bearer ${token}` } }, dispatch)
+         .catch(error => {return (Promise.reject(error.response.data.errorMessage))}));
+
          let userCourses = getState().auth.userCourses ? getState().auth.userCourses: [];
          userCourses.push(data.data.courseDto)
          dispatch({

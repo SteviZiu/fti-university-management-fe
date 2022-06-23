@@ -175,11 +175,11 @@ class AuthActions {
       return async function (dispatch, getState) {
          let token = getState().auth.user.bearer;
          let userModified = getState().auth.userModified;
-         const data = await trackPromise(axios.post(baseUrl + "/friendship", userModified, { headers: { "Authorization": `Bearer ${token}` } }, dispatch));
-         dispatch({
-            type: EnumAuthActions.ACCOUNT_UPDATE_STORE,
-            dati: data.data
-         });
+         const data = await trackPromise(axios.put(baseUrl + "/user", userModified, { headers: { "Authorization": `Bearer ${token}` } }, dispatch));
+        //  dispatch({
+        //     type: EnumAuthActions.ACCOUNT_UPDATE_STORE,
+        //     dati: data.data
+        //  });
       }
     }
 

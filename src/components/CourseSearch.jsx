@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import UniManActions from "../reducers/UniManActions";
 import AuthActions from "../reducers/AuthActions";
-import { Card, Row, Col, Modal, Button } from "react-bootstrap";
+import { Card, Row, Col, Modal, Button, Alert } from "react-bootstrap";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { withRouter } from '../utils/withRouter';
 
@@ -12,6 +12,7 @@ class CourseSearch extends PureComponent {
         this.showModal = this.showModal.bind(this);
         this.openModal = this.openModal.bind(this);
         this.updateSelectedList = this.updateSelectedList.bind(this);
+        this.joinCourse = this.joinCourse.bind(this);
         this.state = this.getInitalState();
     }
 
@@ -48,6 +49,19 @@ class CourseSearch extends PureComponent {
     dropCourse() {
         this.props.dropCourse(this.state.courseId).then(
             this.showModal(false)
+        )
+    }
+
+    joinCourse(id){
+        this.props.joinCourse(id).then(
+            reject => { return (
+                <Alert variant="danger" dismissible>
+                    <Alert.Heading>Error!</Alert.Heading>
+                    <p>
+                       {reject}
+                    </p>
+                </Alert>)
+            }
         )
     }
 
@@ -127,7 +141,7 @@ class CourseSearch extends PureComponent {
                 fieldPath: 'join',
                 formatter: (cellContent, row) => (
                     <div style={{marginLeft:"30px"}}>
-                    <a onClick={() => this.props.joinCourse(row.id)}><i class="fa-solid fa-circle-plus" style={{ fontSize: '1.5em', color: 'green' }}></i></a>
+                    <a onClick={() => this.joinCourse(row.id)}><i class="fa-solid fa-circle-plus" style={{ fontSize: '1.5em', color: 'green' }}></i></a>
                     </div>
                 )
             },{
@@ -172,7 +186,7 @@ class CourseSearch extends PureComponent {
                                     <BootstrapTable
                                         ref={n => this.node = n}
                                         keyField="id"
-                                        data={coursesNotRegistred ? coursesNotRegistred : []}
+                                        data={this.props.courseList ? this.props.courseList : []}
                                         columns={col2}
                                     />
                                 </Card.Body>

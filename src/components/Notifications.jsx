@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import UniManActions from "../reducers/UniManActions";
 import AuthActions from "../reducers/AuthActions";
 import {Alert, Card, Col} from "react-bootstrap";
+import { Agenda, Login } from '@microsoft/mgt-react';
+import { MgtTemplateProps } from '@microsoft/mgt-react';
+
 
 class Notifications extends Component {
 
@@ -12,6 +15,7 @@ class Notifications extends Component {
   }
 
   render() {
+    //let notTest = [{message:"Joan sent you a friend request!"}, {message:"Joan liked  your post!"}]
     const notifications = this.props.notifications.map((el) => (
       <Alert
         className="alert-with-icon"
@@ -27,12 +31,13 @@ class Notifications extends Component {
         </span>
       </Alert>
     ));
+
     return (
       <div className="content">
         <Col md="12">
           <Card>
             <Card.Body>
-              {notifications}
+               {notifications} 
             </Card.Body>
           </Card>
         </Col>

@@ -20,6 +20,7 @@ class Profile extends PureComponent {
   constructor(props) {
     super(props);
   this.handleChange = this.handleChange.bind(this);
+  this.update = this.update.bind(this);
   }
 
 
@@ -36,6 +37,11 @@ class Profile extends PureComponent {
     obj[target.id] = value;
     this.props.updateUserModified(obj);
   };
+
+  update(){
+    this.props.updateProfile();
+
+  }
 
   render() {
     return (
@@ -87,8 +93,12 @@ class Profile extends PureComponent {
                         <FormGroup>
                           <label>First Name</label>
                           <Input
+                            id="name"
                             value={this.props.user.name}
                             type="text"
+                            onChange={(e) => {
+                              this.handleChange(e);
+                            }}
                           />
                         </FormGroup>
                       </Col>
@@ -96,8 +106,12 @@ class Profile extends PureComponent {
                         <FormGroup>
                           <label>Last Name</label>
                           <Input
+                            id="lastName"
                             value={this.props.user.lastName}
                             type="text"
+                            onChange={(e) => {
+                              this.handleChange(e);
+                            }}
                           />
                         </FormGroup>
                       </Col>
@@ -131,6 +145,9 @@ class Profile extends PureComponent {
                             name="datetime"
                             type="datetime"
                             value={this.props.user.birthday}
+                            onChange={(e) => {
+                              this.handleChange(e);
+                            }}
 
                           />
                         </FormGroup>
@@ -143,7 +160,7 @@ class Profile extends PureComponent {
                           className="btn-round"
                           color="primary"
                           type="submit"
-                          onClick={()=> this.props.updateProfile()}
+                          onClick={()=> this.update()}
                         >
                           Update Profile
                         </Button>

@@ -7,7 +7,7 @@ import { MsalAuthenticationTemplate, withMsal, UnauthenticatedTemplate } from "@
 import logo from '../img/logo.png';
 import routes from "../utils/routes"
 import Sidebar from "./Sidebar"
-import AuthActions from "../reducers/AuthActions";
+import UniManActions from "../reducers/UniManActions";
 import {
     Navbar,
     Dropdown,
@@ -73,16 +73,13 @@ class PageLayout extends Component {
                                         <Navbar.Collapse className="justify-content-end">
                                             <Dropdown >
                                                 <Dropdown.Toggle >
-                                                    <i className="nc-icon nc-bell-55" />
-                                                    <p>
-                                                        <span className="d-lg-none d-md-block">Some Actions</span>
-                                                    </p>
+                                                    <i className="nc-icon nc-bell-55" onClick={()=>this.props.getNotifications()}/>
                                                 </Dropdown.Toggle>
 
                                                 <Dropdown.Menu>
-                                                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                                                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                                                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                                                    {this.props.notifications ? this.props.notifications.map(item => 
+                                                    <Dropdown.Item href="#/notifications">{item.message}</Dropdown.Item>
+                                                    ) : null }
                                                 </Dropdown.Menu>
                                             </Dropdown>
                                             <SignOutButton msalContext={this.props.msalContext} />
@@ -103,11 +100,12 @@ class PageLayout extends Component {
 const mapStateToProps = (state) => ({
     path: state.auth.locPath,
     user: state.auth.user,
-    userRegister: state.auth.userRegister
+    userRegister: state.auth.userRegister,
+    notifications: state.uniManagment.notifications ? state.uniManagment.notifications : [],
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    reLogin: (context) => dispatch(AuthActions.reLogin(context)),
+    getNotifications: () => dispatch(UniManActions.getNotifications())
 });
 
 export const ProfileWithMsal = withMsal(connect(mapStateToProps, mapDispatchToProps)(PageLayout));

@@ -3,7 +3,7 @@ import { EnumUniActions } from './UniManActions.js';
 
 
 const initialState = {
-    courseList: [{ id: "6", name: "test", description: "test" }],
+    courseList: [],
     notifications: [],
     userCourses: [],
     courseComments: [],
