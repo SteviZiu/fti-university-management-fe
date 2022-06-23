@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import UniManActions from "../reducers/UniManActions";
 import { Card, Row, Modal, Button, Col } from "react-bootstrap";
 import logo from '../img/user-image.png';
+import AuthActions from "../reducers/AuthActions";
 
 function Friend(props) {
     const { friend, remove, addFriend, openCourses, status } = props
@@ -67,6 +68,7 @@ class Friendship extends Component {
     }
 
     componentDidMount() {
+        this.props.setPath("Friends");
         this.props.getFriends();
         this.props.getFriendReq();
     }
@@ -156,7 +158,7 @@ class Friendship extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-
+    setPath: (path) => dispatch(AuthActions.setPath(path)),
     getFriends: () => dispatch(UniManActions.getFriends()),
     getFriendReq: () => dispatch(UniManActions.getFriendReq()),
     respondFriend: (obj) => dispatch(UniManActions.respondFriend(obj)),

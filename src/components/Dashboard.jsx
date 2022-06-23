@@ -12,6 +12,7 @@ class Dashboard extends PureComponent {
     }
 
     componentDidMount() {
+        this.props.setPath("Dashboard");
         this.props.fetchAllPosts().then(resolve => {
             this.props.posts.map((post) => {
                 this.props.getLikes(post);
